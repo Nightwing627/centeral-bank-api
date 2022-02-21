@@ -1,0 +1,137 @@
+<!doctype html>
+<html class="no-js" lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Central Bank</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/line-awesome/css/line-awesome.min.css">
+    <link rel="stylesheet" href="assets/js/datatables/datatables.bundle.css" type="text/css" />
+    <link rel="stylesheet" href="assets/js/toastr/toastr.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <div class="top-bar">
+                <div class="top-bar-logo">
+                    <h1><a title="Bem vindo ao Banco Central - Consulta Pública do Valores a Receber" href="/" class="docs-creator">
+                        <span class="link-text">Logomarca do Banco Central</span></a></h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="main">
+        <div class="container">
+            <div class="d-flex justify-content-center py-5">
+                <div class="col-lg-8 col-md-8 col-sm-12">
+                    <div class="card card-custom">
+                        <div class="card-body">
+                            <%
+                                if (type == 'cpf') {
+                            %>
+                            <div class="d-none no-result cpf-no">
+                                <div class="result-header justify-content-center text-center">
+                                    <h4 class="text-lg text-muted font-weight-bold">Não há registros na base de valores a receber</h4>
+                                    <p class="param text-muted mt-3 mb-0">CPF: <%= cpf %></p>
+                                    <p class="param text-muted">Data de nascimento: <%= birth %></p>
+                                </div>
+                                <div class="col-12 col-lg-12 my-4 text-md">
+                                    <div>
+                                        <p class="text-muted">Não foram encontrados valores a receber para o CPF e a data de nascimento informados. Verifique por favor se a data de nascimento está correta.</p>
+                                        <p class="text-muted">Se estiver, a partir de 02/05/2022 você poderá fazer nova consulta e saber se terá valores a receber no próximo período.</p>
+                                        <p class="text-muted">Caso não esteja, refaça a consulta por favor.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-none cpf-result text-center">
+                                <p class="text-lg text-muted">Resultado do CPF</p>
+                                <table class="table table-dark table-striped">
+                                    <thead>
+                                        <th scope="col">#</th>
+                                        <th scope="col">CPF</th>
+                                        <th scope="col">Data de nascimento</th>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <%
+                                } else {
+                            %>
+                            <div class="d-none no-result cnpj-no">
+                                <div class="result-header justify-content-center text-center">
+                                    <h4 class="text-lg text-muted font-weight-bold">Não há registros na base de valores a receber</h4>
+                                    <p class="param text-muted mt-3 mb-0">CPF: <%= cnpj %></p>
+                                    <p class="param text-muted">Data de nascimento: <%= openDate %></p>
+                                </div>
+                                <div class="col-12 col-lg-12 my-4 text-md">
+                                    <div>
+                                        <p class="text-muted">Não foram encontrados valores a receber para o CPF e a data de nascimento informados. Verifique por favor se a data de nascimento está correta.</p>
+                                        <p class="text-muted">Se estiver, a partir de 02/05/2022 você poderá fazer nova consulta e saber se terá valores a receber no próximo período.</p>
+                                        <p class="text-muted">Caso não esteja, refaça a consulta por favor.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-none cpf-result text-center">
+                                <h4 class="text-lg text-muted">Resultado do CNPJ</h4>
+                                <table class="table table-dark table-striped">
+                                    <thead>
+                                        <th scope="col">#</th>
+                                        <th scope="col">CNPJ</th>
+                                        <th scope="col">Data de abertura da empresa</th>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <%
+                                }
+                            %>      
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.mswitch.js"></script>
+    <script src="assets/js/jquery.inputmask.min.js"></script>
+    <script src="assets/js/jquery.form.js"></script>
+    <script src="assets/js/datatables/datatables.bundle.js"></script>
+    <script src="assets/js/toastr/toastr.min.js"></script>
+    <script src="assets/js/jquery.validate.min.js"></script>
+    
+    <script>
+    var data = `<%= result %>`.split(',');
+    var type = `<%= type %>`;
+    
+    initData();
+
+    function initData() {
+        var obj;
+        if (type == 'cpf') {
+            obj = data.length > 0 && data[0] != '' ? $('.cpf-result') : $('.cpf-no');
+        } else if (type = 'cnpj') {
+            obj = data.length > 0 && data[0] != '' ? $('.cnpj-result') : $('.cnpj-no');
+        }
+
+        $(obj).removeClass('d-none').addClass('d-block');
+        
+        if (data.length > 0 && data[0] != '') {
+            var html = '';
+            for (i = 0; i < data.length; i += 2) {
+                html += '<tr><td>' + (i / 2 + 1) + '</td>' + 
+                        '<td>' + data[i] + '</td>' + 
+                        '<td>' + data[i + 1] + '</td></tr>';
+            }
+            $(obj).find('table tbody').html(html);
+        }
+    }
+</script>
+</body>
+
+</html>

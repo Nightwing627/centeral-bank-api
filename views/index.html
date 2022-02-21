@@ -1,0 +1,122 @@
+<!doctype html>
+<html class="no-js" lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Central Bank</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/line-awesome/css/line-awesome.min.css">
+    <link rel="stylesheet" href="assets/js/datatables/datatables.bundle.css" type="text/css" />
+    <link rel="stylesheet" href="assets/js/toastr/toastr.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <div class="top-bar">
+                <div class="top-bar-logo">
+                    <h1><a title="Bem vindo ao Banco Central - Consulta Pública do Valores a Receber" href="/" class="docs-creator">
+                        <span class="link-text">Logomarca do Banco Central</span></a></h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Preloader Start -->
+    <div class="main">
+        <div class="container">
+            <div class="d-flex justify-content-center py-5">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <form action="/get_data" method="post" name="dataFrm">
+                        <div class="card card-custom">
+                            <div class="card-header">
+                                <div class="card-title d-flex mx-0 my-0">
+                                    <h4 class="card-label font-weight-bold first-label">Valores a Receber</h4>
+                                    <span class="second-label text-secondary">Consulta Pública</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="radio-inline">
+                                        <label class="radio">
+                                            <input type="radio" name="type" value="cpf">
+                                            <span></span>CPF</label>
+                                        <label class="radio">
+                                            <input type="radio" name="type" value="cnpj">
+                                            <span></span>CNPJ</label>
+                                    </div>
+                                </div>
+                                <div class="section_cpf d-none">
+                                    <div class="form-group col-12 col-lg-12 px-0 mb-5">
+                                        <label for="cpfCnpj" class="mb-1">Insira o CPF: </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text font-size-24"><i class="las la-user-circle"></i></span>
+                                            </div>
+                                            <input type="text" id="cpf" name="cpf_value" class="form-control" placeholder="Exemplo: 000.000.000-00" 
+                                                data-inputmask="'mask': '999.999.999-99'" />
+                                            <input type="hidden" name="cpf" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-12 col-lg-12 px-0 mb-5">
+                                        <label for="cpfCnpj" class="mb-1">Data de nascimento: </label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="date" id="birth" name="birth_value"
+                                                value="2022/07/22" placeholder="dd/mm/yyyy"
+                                                min="1700/01/01" max="3000/12/31" />
+                                            <input type="hidden" name="birth" />
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <div class="section_cnpj d-none">
+                                    <div class="form-group col-12 col-lg-12 px-0 mb-5">
+                                        <label for="cpfCnpj" class="mb-1">Insira o CNPJ: </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text font-size-24"><i class="las la-user-circle"></i></span>
+                                            </div>
+                                            <input type="text" id="cnpj" name="cnpj_value" class="form-control" placeholder="Exemplo: 00.000.000/0000-00" 
+                                                data-inputmask="'mask': '99.999.999/9999-99'" />
+                                            <input type="hidden" name="cnpj" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-12 col-lg-12 px-0 mb-5">
+                                        <label for="cpfCnpj" class="mb-1">Data de abertura da empresa: </label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="date" id="openDate" name="openDate_value"
+                                                value="2022/07/22" placeholder="mm/dd/yyyy"
+                                                min="1700/01/01" max="3000/12/31" />
+                                            <input type="hidden" name="openDate" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="position-relative float-right btn-primary" type="submit">
+                                    <i class="las la-search"></i>
+                                    <span>Consultar</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.mswitch.js"></script>
+    <script src="assets/js/jquery.inputmask.min.js"></script>
+    <script src="assets/js/jquery.form.js"></script>
+    <script src="assets/js/datatables/datatables.bundle.js"></script>
+    <script src="assets/js/toastr/toastr.min.js"></script>
+    <script src="assets/js/jquery.validate.min.js"></script>
+    <script src="assets/js/pages/index.js"></script>
+</body>
+
+</html>
